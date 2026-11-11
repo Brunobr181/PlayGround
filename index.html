@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="theme-color" content="#071116" />
+  <link rel="icon" href="data:," />
+  <title>NEON BREACH — FPS Arena</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main id="app">
+    <canvas id="gameCanvas" aria-label="Arena FPS"></canvas>
+    <div class="scene-vignette"></div>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Neon Breach início"><span class="brand-mark">N<span>✳</span></span><span>NEON<br><b>BREACH</b></span></a>
+      <div class="top-center"><span class="live-dot"></span> OPERAÇÃO <b>BLACKOUT</b><i>•</i> SETOR 07</div>
+      <div class="wallet"><span class="coin">₡</span><strong id="topCredits">1.250</strong><span>CR</span></div>
+    </header>
+
+    <section id="menuScreen" class="screen menu-screen">
+      <div class="menu-content">
+        <div class="eyebrow"><span></span> PROTOCOLO DE CONTENÇÃO // 2089</div>
+        <h1>CAÇADA<br><em>NOTURNA</em></h1>
+        <p class="hero-copy">O apagão tomou o setor. Resista às ondas.<br>Equipe-se. Recupere a cidade.</p>
+        <div class="menu-actions">
+          <button id="playBtn" class="btn-primary"><span>▶</span> JOGAR AGORA <b>↗</b></button>
+          <button id="storeBtn" class="btn-secondary"><span>▣</span> ARSENAL <small>LOJA</small></button>
+          <button id="inventoryBtn" class="btn-secondary"><span>◈</span> INVENTÁRIO <small id="weaponCount">01</small></button>
+        </div>
+        <div class="hero-foot"><span>⌖</span> DERRUBE OS HOSTIS. GANHE CRÉDITOS. SOBREVIVA.</div>
+      </div>
+      <div class="hero-side">
+        <div class="sector-card"><div><span class="mini-label">ZONA DE COMBATE</span><b>SUBNÍVEL 07</b></div><div class="sector-icon">07</div><div class="sector-line"></div><small>PERIGO <b>EXTREMO</b><span>● ● ● ● ○</span></small></div>
+        <div class="agent-card"><div class="agent-avatar">⌁</div><div><small>OPERADOR</small><b>GHOST-09</b><span>ESPECIALISTA DE CAMPO</span></div><span class="agent-ready">● ONLINE</span></div>
+        <div class="tip-card"><span>✦</span><div><b>DICA DE CAMPO</b><p>Acertos na cabeça causam dano crítico. Mantenha-se em movimento.</p></div></div>
+      </div>
+      <div class="menu-bottom"><span>NEON BREACH <i>///</i> BUILD 2.08.9</span><span>FPS ARENA <i>•</i> MOBILE READY</span></div>
+    </section>
+
+    <section id="shopScreen" class="screen panel-screen hidden">
+      <div class="panel-head"><div><div class="eyebrow"><span></span> EQUIPAMENTO TÁTICO</div><h2>ARSENAL <em>NEGRO</em></h2><p>Escolha seu próximo argumento.</p></div><button class="close-btn" data-back>✕ <span>VOLTAR</span></button></div>
+      <div class="shop-balance"><span>SEUS CRÉDITOS</span><b>₡ <strong id="shopCredits">1.250</strong></b></div>
+      <div class="weapon-grid" id="shopGrid"></div>
+      <div class="panel-note">✦ Créditos são ganhos eliminando hostis durante as operações.</div>
+    </section>
+
+    <section id="inventoryScreen" class="screen panel-screen hidden">
+      <div class="panel-head"><div><div class="eyebrow"><span></span> CONFIGURAÇÃO DE CAMPO</div><h2>SEU <em>INVENTÁRIO</em></h2><p>Armas disponíveis para a operação.</p></div><button class="close-btn" data-back>✕ <span>VOLTAR</span></button></div>
+      <div class="inventory-content"><div class="inventory-list" id="inventoryList"></div><div class="loadout-card"><span class="mini-label">ARMA EQUIPADA</span><div id="loadoutArt" class="loadout-art">╱╲</div><h3 id="loadoutName">PULSE 9</h3><span class="rarity-tag">PADRÃO // CLASSE A</span><p id="loadoutDesc">Confiável, leve e pronta para qualquer situação.</p><div class="weapon-stats" id="loadoutStats"></div><div class="equip-status">● OPERACIONAL</div></div></div>
+    </section>
+
+    <section id="gameScreen" class="game-screen hidden">
+      <div class="game-hud">
+        <div class="hud-wave"><span class="hud-label">ONDA</span><b id="waveNum">01</b><span class="wave-divider">/</span><span id="waveTotal">04</span><div class="wave-progress"><i id="waveProgress"></i></div></div>
+        <div class="hud-objective"><span class="live-dot"></span><div><small>OBJETIVO</small><b id="objectiveText">ELIMINE OS HOSTIS</b></div><span id="enemyCount">03 HOSTIS</span></div>
+        <div class="hud-money">₡ <b id="gameCredits">1.250</b><small>CR</small></div>
+      </div>
+      <div class="crosshair"><i></i><i></i><i></i><i></i><b></b></div>
+      <div class="hit-marker" id="hitMarker">✕</div>
+      <div class="damage-flash" id="damageFlash"></div>
+      <div class="kill-feed" id="killFeed"></div>
+      <div class="game-bottom">
+        <div class="health-box"><div class="health-icon">✚</div><div class="health-info"><small>INTEGRIDADE</small><div class="health-track"><i id="healthBar"></i></div><b id="healthNum">100</b></div></div>
+        <div class="weapon-hud"><div class="weapon-hud-name"><small id="gameWeaponType">PISTOLA TÁTICA</small><b id="gameWeaponName">PULSE 9</b></div><div class="ammo"><b id="ammoCurrent">12</b><span>/</span><small id="ammoReserve">60</small></div><button id="reloadBtn" title="Recarregar">↻</button></div>
+        <button id="pauseBtn" class="pause-btn" aria-label="Pausar">Ⅱ</button>
+      </div>
+      <div class="mobile-controls" id="mobileControls"><div class="move-pad" id="movePad"><div class="pad-ring"><div id="moveStick"></div></div><small>MOVER</small></div><button class="touch-reload" id="touchReload">↻</button><button class="fire-button" id="fireBtn"><span>◎</span><small>DISPARAR</small></button></div>
+      <div class="toast" id="toast"></div>
+      <div id="waveBanner" class="wave-banner hidden"><small>ALVO NEUTRALIZADO</small><b>ÁREA SEGURA</b><span>PREPARE-SE PARA A PRÓXIMA ONDA</span></div>
+      <div id="pauseOverlay" class="overlay hidden"><div class="overlay-card"><span class="eyebrow">PAUSA TÁTICA</span><h2>RECUPERE O <em>FOCO</em></h2><button id="resumeBtn" class="btn-primary">▶ CONTINUAR</button><button id="leaveBtn" class="btn-secondary">⌂ VOLTAR AO MENU</button></div></div>
+      <div id="endOverlay" class="overlay hidden"><div class="overlay-card"><span class="eyebrow" id="endEyebrow">OPERAÇÃO CONCLUÍDA</span><h2 id="endTitle">SETOR <em>LIMPO</em></h2><p id="endCopy">A cidade respira mais uma noite.</p><div class="result-stats"><div><b id="endKills">0</b><small>ELIMINAÇÕES</small></div><div><b id="endReward">+0</b><small>CRÉDITOS GANHOS</small></div></div><button id="againBtn" class="btn-primary">▶ JOGAR NOVAMENTE</button><button id="endMenuBtn" class="btn-secondary">⌂ MENU PRINCIPAL</button></div></div>
+    </section>
+    <div class="screen-grain"></div>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>
